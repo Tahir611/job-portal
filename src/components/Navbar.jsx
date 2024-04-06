@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg py-3 navbar-dark bg-dark">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
             Job Portal
@@ -76,7 +76,7 @@ const NavBar = () => {
                   </ul>
                 </li>
                 <li className="nav-item px-3">
-                  <NavLink className="nav-link" to="/login">
+                  <NavLink className="nav-link" to="/c-login">
                     Login
                   </NavLink>
                 </li>
