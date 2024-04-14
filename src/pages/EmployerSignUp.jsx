@@ -1,8 +1,12 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const EmployerSignUp = () => {
+  const [notSigned, setNotSigned] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  // console.log("CHECK API MESSAGE", notSigned)
   const {
     register,
     handleSubmit,
@@ -14,6 +18,12 @@ const EmployerSignUp = () => {
     await axios
       .post("http://localhost:5500/e-signup", data)
       .then((response) => {
+        if (response.data.messageType === "Success") {
+          navigate("/e-login");
+        } else {
+          setNotSigned(true);
+          setErrorMessage(response.data.message);
+        }
         console.log("SIGNUP RESPONSE", response);
       })
       .catch((e) => {
@@ -51,6 +61,7 @@ const EmployerSignUp = () => {
                 <h4 className="text-center pb-4">Signup Here</h4>
                 <div className="card">
                   <div className="card-body py-5 px-md-5">
+                    {notSigned && <p className="text-danger">{errorMessage}</p>}
                     <form onSubmit={handleSubmit(onSubmit)}>
                       {/* 2 column grid layout with text inputs for the first and last names */}
                       <div className="row">
@@ -67,7 +78,6 @@ const EmployerSignUp = () => {
                                 Name is required
                               </span>
                             )}
-                            
                           </div>
                         </div>
                         <div className="col-md-6 mb-4">
@@ -83,7 +93,6 @@ const EmployerSignUp = () => {
                                 Username is required
                               </span>
                             )}
-                            
                           </div>
                         </div>
                       </div>
@@ -98,7 +107,6 @@ const EmployerSignUp = () => {
                         {errors.email && (
                           <span className="text-danger">Email is required</span>
                         )}
-                        
                       </div>
                       {/* Password input */}
                       <div className="form-outline mb-4">
@@ -113,7 +121,6 @@ const EmployerSignUp = () => {
                             Password is required
                           </span>
                         )}
-                       
                       </div>
                       {/* Submit button */}
                       <button

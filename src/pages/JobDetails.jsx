@@ -39,14 +39,14 @@ const JobDetails = () => {
 
   const onSubmit = async (data) => {
     // Handle file submission here
-    console.log(data.file[0].name); // Access uploaded file data
+    // console.log(data.file[0].name); // Access uploaded file data
     // const formData = {resume :data.file[0].name};
     const formData = new FormData();
     formData.append("resume", data.file[0]);
     console.log(formData)
     await axios
       .post(
-        `http://localhost:5500/apply-job/${jobDetail.job.id}`,
+        `http://localhost:5500/apply-job/${jobDetail?.job.id}`,
         formData,
         {
           headers: {
@@ -108,9 +108,9 @@ const JobDetails = () => {
                   id="fileInput"
                   {...register("file", { required: true })}
                 />
-                <button type="submit" className="btn btn-primary mt-3">
+                {token ? <button type="submit" className="btn btn-primary mt-3">
                   Submit
-                </button>
+                </button> : <p className="text-danger py-3">Login please</p>}
               </div>
             </form>
           </div>

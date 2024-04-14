@@ -14,14 +14,7 @@ const EmployerLogin = () => {
   const onSubmit = async (data) => {
     employerLogin(data);
     console.log(data); // You can replace this with your API call to submit the form data
-    // await axios
-    //   .post("http://localhost:5500/c-signup", data)
-    //   .then((response) => {
-    //     console.log("SIGNUP RESPONSE", response);
-    //   })
-    //   .catch((e) => {
-    //     return console.log("ERROR", e);
-    //   });
+    
   };
   const hanldeNavigate = () => {
     navigate("/e-signup");

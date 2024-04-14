@@ -1,6 +1,12 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 const NavBar = () => {
+  const { employerLoggedIn, role, employerLogout, candidateLogout } = useAuth();
+  const hanldeLogout = () => {
+    employerLogout();
+    candidateLogout();
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg py-3 navbar-dark bg-dark">
@@ -60,11 +66,19 @@ const NavBar = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/my-jobs">
-                        <span className="dropdown-item cursor" to="#">
-                          My Jobs
-                        </span>
-                      </NavLink>
+                      {role === "Employer" ? (
+                        <NavLink to="/created-jobs">
+                          <span className="dropdown-item cursor" to="#">
+                            Created Jobs
+                          </span>
+                        </NavLink>
+                      ) : (
+                        <NavLink to="/my-jobs">
+                          <span className="dropdown-item cursor" to="#">
+                            My Jobs
+                          </span>
+                        </NavLink>
+                      )}
                     </li>
                     <li>
                       <NavLink to="/settings">
@@ -81,8 +95,20 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item px-3">
-                  <NavLink className="nav-link" to="/employer">
+                  <NavLink
+                    className="nav-link"
+                    to={employerLoggedIn ? "/employer" : "/e-login"}
+                  >
                     Employer/Job Post
+                  </NavLink>
+                </li>
+                <li className="nav-item px-3">
+                  <NavLink
+                    onClick={hanldeLogout}
+                    className="nav-link"
+                    to={"/"}
+                  >
+                    Logout
                   </NavLink>
                 </li>
               </ul>
