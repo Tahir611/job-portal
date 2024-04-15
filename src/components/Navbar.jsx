@@ -2,11 +2,11 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 
 const NavBar = () => {
-  const { employerLoggedIn, role, employerLogout, candidateLogout } = useAuth();
+  const { employerLoggedIn, employerLogout, candidateLogout } = useAuth();
   const hanldeLogout = () => {
     employerLogout();
     candidateLogout();
-  }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg py-3 navbar-dark bg-dark">
@@ -43,7 +43,30 @@ const NavBar = () => {
             </ul>
             <div>
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item dropdown px-3">
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    <span className="cursor" to="#">
+                      Profile
+                    </span>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  {localStorage.getItem("employerToken") && (
+                    <NavLink className="nav-link" to="/created-jobs">
+                      <span className="cursor" to="#">
+                        Created Jobs
+                      </span>
+                    </NavLink>
+                  )}
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/my-jobs">
+                    <span className="cursor" to="#">
+                      My Jobs
+                    </span>
+                  </NavLink>
+                </li>
+                {/* <li className="nav-item dropdown px-3">
                   <NavLink
                     className="nav-link dropdown-toggle"
                     to="#"
@@ -88,7 +111,7 @@ const NavBar = () => {
                       </NavLink>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 <li className="nav-item px-3">
                   <NavLink className="nav-link" to="/c-login">
                     Login
@@ -103,11 +126,7 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item px-3">
-                  <NavLink
-                    onClick={hanldeLogout}
-                    className="nav-link"
-                    to={"/"}
-                  >
+                  <NavLink onClick={hanldeLogout} className="nav-link" to={"/"}>
                     Logout
                   </NavLink>
                 </li>
